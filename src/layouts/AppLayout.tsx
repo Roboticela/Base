@@ -8,15 +8,17 @@ export function AppLayout() {
   const location = useLocation()
   const isSheetBuilder =
     /\/sheets\/[^/]+$/.test(location.pathname) && !location.pathname.endsWith('/settings')
+  const isAutomationBuilder = /\/automations\/[^/]+$/.test(location.pathname)
+  const isImmersive = isSheetBuilder || isAutomationBuilder
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <AppSidebar pathname={location.pathname} />
       <div className="lg:pl-[268px]">
-        {!isSheetBuilder ? <AppTopbar /> : null}
+        {!isImmersive ? <AppTopbar /> : null}
         <main
           className={cn(
-            isSheetBuilder
+            isImmersive
               ? 'w-full'
               : 'mx-auto w-full max-w-[1180px] px-4 py-6 sm:px-6 sm:py-8',
           )}

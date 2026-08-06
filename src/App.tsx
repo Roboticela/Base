@@ -20,6 +20,7 @@ import { AdminPanelPage } from '@/pages/admin/AdminPanelPage'
 import { AiBuilderPage } from '@/pages/ai/AiBuilderPage'
 import { AiChatPage } from '@/pages/ai/AiChatPage'
 import { AutomationsPage } from '@/pages/automations/AutomationsPage'
+import { AutomationBuilderPage } from '@/pages/automations/AutomationBuilderPage'
 import { BillingPage } from '@/pages/billing/BillingPage'
 import { DashboardPage } from '@/pages/dashboard/DashboardPage'
 import { DevelopersPage } from '@/pages/developers/DevelopersPage'
@@ -82,6 +83,7 @@ export default function App() {
           <Route path="ai-builder" element={<AiBuilderPage />} />
           <Route path="ai" element={<AiChatPage />} />
           <Route path="automations" element={<AutomationsPage />} />
+          <Route path="automations/:automationId" element={<AutomationBuilderPage />} />
           <Route path="email" element={<EmailCenterPage />} />
           <Route path="reports" element={<ReportsPage />} />
           <Route path="templates" element={<TemplatesPage />} />

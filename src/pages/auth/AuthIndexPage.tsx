@@ -45,7 +45,12 @@ const SECTIONS: { title: string; pages: { to: string; label: string; description
     pages: [
       { to: '/w/ws-acme/ai-builder', label: 'AI Workspace Builder', description: 'Generate workspace' },
       { to: '/w/ws-acme/ai', label: 'AI Chat', description: 'Assistant' },
-      { to: '/w/ws-acme/automations', label: 'Automations', description: 'Visual builder' },
+      { to: '/w/ws-acme/automations', label: 'Automations', description: 'Dashboard + filters' },
+      {
+        to: '/w/ws-acme/automations/auto-followup',
+        label: 'Automation Builder',
+        description: 'Visual workflow canvas',
+      },
     ],
   },
   {
