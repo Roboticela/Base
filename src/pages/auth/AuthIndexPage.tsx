@@ -4,18 +4,73 @@ import { AuthCard } from '@/components/auth/AuthCard'
 import { AuthHeader } from '@/components/auth/AuthHeader'
 import { ThemeToggle } from '@/components/theme-toggle'
 
-const AUTH_PAGES = [
-  { to: '/login', label: 'Login', description: 'Email, password, social, remember me' },
-  { to: '/register', label: 'Register', description: 'Profile fields, strength meter, terms' },
-  { to: '/forgot-password', label: 'Forgot Password', description: 'Reset link request + resend' },
-  { to: '/reset-password', label: 'Reset Password', description: 'New password + confirmation' },
-  { to: '/email-verification', label: 'Email Verification', description: 'Status, resend, countdown' },
-  { to: '/email-verified', label: 'Email Verified', description: 'Success + auto redirect' },
-  { to: '/two-factor', label: 'Two-Factor Authentication', description: 'OTP inputs + recovery codes' },
-  { to: '/accept-invitation', label: 'Accept Invitation', description: 'Workspace invite review' },
-  { to: '/join-workspace', label: 'Join Workspace', description: 'Code, URL, or request access' },
-  { to: '/session-expired', label: 'Session Expired', description: 'Re-authenticate after timeout' },
-  { to: '/account-locked', label: 'Account Locked', description: 'Lock reason + recovery paths' },
+const SECTIONS: { title: string; pages: { to: string; label: string; description: string }[] }[] = [
+  {
+    title: 'Auth',
+    pages: [
+      { to: '/login', label: 'Login', description: 'Sign in' },
+      { to: '/register', label: 'Register', description: 'Create account' },
+      { to: '/workspaces', label: 'Workspaces', description: 'Selection + create' },
+    ],
+  },
+  {
+    title: 'Core workspace',
+    pages: [
+      { to: '/w/ws-acme', label: 'Dashboard', description: 'Workspace home' },
+      { to: '/w/ws-acme/sheets', label: 'Sheets', description: 'All sheets + folders' },
+      {
+        to: '/w/ws-acme/sheets/sheet-customers',
+        label: 'Sheet Builder',
+        description: 'Table, panels, views',
+      },
+      {
+        to: '/w/ws-acme/sheets/sheet-customers/records/r1',
+        label: 'Record Details',
+        description: 'Single record hub',
+      },
+      {
+        to: '/w/ws-acme/sheets/sheet-customers/views',
+        label: 'Views',
+        description: 'Table through Map',
+      },
+      {
+        to: '/w/ws-acme/sheets/sheet-customers/settings',
+        label: 'Sheet Settings',
+        description: 'Fields, rules, API',
+      },
+    ],
+  },
+  {
+    title: 'AI & Automations',
+    pages: [
+      { to: '/w/ws-acme/ai-builder', label: 'AI Workspace Builder', description: 'Generate workspace' },
+      { to: '/w/ws-acme/ai', label: 'AI Chat', description: 'Assistant' },
+      { to: '/w/ws-acme/automations', label: 'Automations', description: 'Visual builder' },
+    ],
+  },
+  {
+    title: 'Ops & growth',
+    pages: [
+      { to: '/w/ws-acme/email', label: 'Email Center', description: 'Inbox to campaigns' },
+      { to: '/w/ws-acme/reports', label: 'Reports', description: 'Analytics' },
+      { to: '/w/ws-acme/templates', label: 'Templates', description: 'Marketplace' },
+      { to: '/w/ws-acme/forms', label: 'Public Forms', description: 'Form builder' },
+      { to: '/w/ws-acme/team', label: 'Team', description: 'Members & roles' },
+    ],
+  },
+  {
+    title: 'Account & platform',
+    pages: [
+      { to: '/w/ws-acme/notifications', label: 'Notifications', description: 'Alerts & prefs' },
+      { to: '/w/ws-acme/profile', label: 'Profile', description: 'Personal settings' },
+      { to: '/w/ws-acme/settings', label: 'Workspace Settings', description: 'General & AI' },
+      { to: '/w/ws-acme/billing', label: 'Billing', description: 'Plans & invoices' },
+      { to: '/w/ws-acme/integrations', label: 'Integrations', description: 'Connect apps' },
+      { to: '/w/ws-acme/developers', label: 'API & Developers', description: 'Keys & playground' },
+      { to: '/help', label: 'Help Center', description: 'Docs & support' },
+      { to: '/admin', label: 'Admin Panel', description: 'Super admin' },
+    ],
+  },
 ]
 
 export function AuthIndexPage() {
@@ -25,33 +80,42 @@ export function AuthIndexPage() {
         <ThemeToggle />
       </div>
 
-      <div className="w-full max-w-[640px]">
+      <div className="flex w-full max-w-[720px] flex-col gap-6">
         <AuthCard>
           <AuthHeader
             eyebrow="Design preview"
-            title="Authentication"
-            description="Centered auth layouts matching the redesign system. UI only — no backend."
+            title="Base application"
+            description="UI-only routes for auth, workspaces, sheets, AI, and platform admin."
           />
-
-          <ul className="divide-y divide-border rounded-xl border border-border">
-            {AUTH_PAGES.map((page) => (
-              <li key={page.to}>
-                <Link
-                  to={page.to}
-                  className="flex items-start justify-between gap-4 px-4 py-3.5 transition-colors hover:bg-muted/50"
-                >
-                  <span>
-                    <span className="block text-[14.5px] font-medium text-foreground">{page.label}</span>
-                    <span className="mt-0.5 block text-[13px] text-muted-foreground">
-                      {page.description}
-                    </span>
-                  </span>
-                  <span className="shrink-0 pt-0.5 text-[13px] font-medium text-primary">{page.to}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
         </AuthCard>
+
+        {SECTIONS.map((section) => (
+          <AuthCard key={section.title}>
+            <h2 className="mb-4 text-[15px] font-semibold text-foreground">{section.title}</h2>
+            <ul className="divide-y divide-border rounded-xl border border-border">
+              {section.pages.map((page) => (
+                <li key={page.to}>
+                  <Link
+                    to={page.to}
+                    className="flex items-start justify-between gap-4 px-4 py-3.5 transition-colors hover:bg-muted/50"
+                  >
+                    <span>
+                      <span className="block text-[14.5px] font-medium text-foreground">
+                        {page.label}
+                      </span>
+                      <span className="mt-0.5 block text-[13px] text-muted-foreground">
+                        {page.description}
+                      </span>
+                    </span>
+                    <span className="shrink-0 pt-0.5 text-[12px] font-medium text-primary">
+                      Open
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </AuthCard>
+        ))}
       </div>
     </div>
   )
